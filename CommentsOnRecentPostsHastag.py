@@ -6,6 +6,8 @@ hastags=[]
 numHastag=0
 while numHastag<=0:
     numHastag=int(input("Enter the number of hastags you want to enter "))
-print("Enter the hastags")
-for x in range(numHastag):
+print("Enter the hastags without space")
+for tags in range(numHastag):
     hastags.append(input("Enter hashtag "+str(x+1)+" : "))
+
+for 
