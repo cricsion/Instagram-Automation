@@ -16,16 +16,23 @@ while numComment<=0: #Same reason as in line 7
 print("Enter the comments ")
 comments=[]
 for comment in range(numComment): #Takes input of the comments the user wants to comment on post
-    comments.append("Enter comment "+str(comment+1)+" : ")
+    comments.append(input("Enter comment "+str(comment+1)+" : "))
 
 def Opens_First_Recent_Post(): #Opens First Recent Post at the time
-    driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div/div[1]/img').click()
+    driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div').click()
     sleep(2)
 
+def NextPost():
+    driver.find_element_by_xpath('//*[text()="Next"]').click()
+    sleep(1)
+
 com_per_hastag=0
-while com_per_hastag<=0:
+while com_per_hastag<=0: #To take input of the number of comments a user wants to put into an hashtag
     com_per_hastag=int(input("Enter the number of comments you want to post per hastag : "))
 
 for tag in hastags:
-    for com in range(com_per_hastag):
-        driver.get('https://www.instagram.com/explore/tags/{}/'.format(tag))
+    driver.get('https://www.instagram.com/explore/tags/{}/'.format(tag))
+    Opens_First_Recent_Post()
+    NextPost()
+    #for com in range(com_per_hastag):
+
