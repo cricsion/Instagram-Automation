@@ -33,11 +33,17 @@ def NextPost():
     sleep(1)
 
 def CommentsOnPost(comment):
-    sleep(1)
-    driver.find_element_by_xpath('/html/body/div[4]/div[2]/div/article/div[3]/section[3]/div/form/textarea').click()
-    driver.find_element_by_xpath('/html/body/div[4]/div[2]/div/article/div[3]/section[3]/div/form/textarea').send_keys(comment)
-    sleep(0.3)
-    driver.find_element_by_xpath('//button[text()="Post"]')
+    try:
+        driver.find_element_by_xpath('/html/body/div[4]/div[2]/div/article/div[3]/section[3]/div/form/textarea').click()
+        sleep(0.5)
+        driver.find_element_by_xpath('/html/body/div[4]/div[2]/div/article/div[3]/section[3]/div/form/textarea').send_keys(comment)
+        sleep(0.3)
+    except:
+        driver.find_element_by_xpath('/html/body/div[4]/div[2]/div/article/div[3]/section[3]/div/form/textarea').click()
+        sleep(0.5)
+        driver.find_element_by_xpath('/html/body/div[4]/div[2]/div/article/div[3]/section[3]/div/form/textarea').send_keys(comment)
+        sleep(0.3)
+    driver.find_element_by_xpath('//button[text()="Post"]').click()
     sleep(0.5)
     
 
