@@ -1,8 +1,6 @@
 from Open_Browser import driver
 from time import sleep
-import Login
+from Login import username
 
-driver.find_element_by_xpath('/html/body/div[1]/section/nav/div[2]/div/div/div[3]/div/div[5]/span/img').click()
-sleep(1)
-driver.find_element_by_xpath('/html/body/div[1]/section/nav/div[2]/div/div/div[3]/div/div[5]/div[2]/div[2]/div[2]/a[1]/div/div[2]/div/div/div/div').click()
+driver.get('https://www.instagram.com/{}/'.format(username))
 sleep(3)
