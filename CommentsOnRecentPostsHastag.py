@@ -1,6 +1,7 @@
 import Login
 from Open_Browser import driver
 from time import sleep
+import random 
 
 hastags=[]
 numHastag=0
@@ -19,12 +20,25 @@ for comment in range(numComment): #Takes input of the comments the user wants to
     comments.append(input("Enter comment "+str(comment+1)+" : "))
 
 def Opens_First_Recent_Post(): #Opens First Recent Post at the time
-    driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div').click()
-    sleep(2)
+    try: #If the page does not load, the except block will be executed
+        driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div').click()
+        sleep(2)
+    except:
+        sleep(3)
+        driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div/div[1]/div[1]/a/div').click()
+        sleep(2)
 
 def NextPost():
     driver.find_element_by_xpath('//*[text()="Next"]').click()
     sleep(1)
+
+def CommentsOnPost(comment):
+    sleep(1)
+    driver.find_element_by_xpath(('/html/body/div[4]/div[2]/div/article/div[3]/section[3]/div/form/textarea')).send_keys(comment)
+    sleep(0.3)
+    driver.find_element_by_xpath('//button[text()="Post"]')
+    sleep(0.5)
+    
 
 com_per_hastag=0
 while com_per_hastag<=0: #To take input of the number of comments a user wants to put into an hashtag
@@ -32,7 +46,12 @@ while com_per_hastag<=0: #To take input of the number of comments a user wants t
 
 for tag in hastags:
     driver.get('https://www.instagram.com/explore/tags/{}/'.format(tag))
-    Opens_First_Recent_Post()
-    NextPost()
-    #for com in range(com_per_hastag):
+    sleep(1)
+    Opens_First_Recent_Post()    
+    for com in range(com_per_hastag):
+        print("Posted comment ",str(com+1)," on tag ",tag)
+        CommentsOnPost(random.choice(comments))
+        NextPost()
+        sleep(1)
+
 
