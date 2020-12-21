@@ -3,21 +3,28 @@ from Open_Browser import driver
 from time import sleep
 import random 
 
-hastags=[]
-numHastag=0
-while numHastag<=0: # To prevent users from inputting number of hastags as less than 0 or equal to 0
-    numHastag=int(input("Enter the number of hastags you want to enter : "))
-print("Enter the hastags without space")
-for tags in range(numHastag): #Takes input of hastags 
-    hastags.append(input("Enter hashtag "+str(tags+1)+" : "))
 
-numComment=0
-while numComment<=0: #Same reason as in line 7
-    numComment=int(input("Enter the number of comments you want to enter : "))
-print("Enter the comments ")
-comments=[]
-for comment in range(numComment): #Takes input of the comments the user wants to comment on post
-    comments.append(input("Enter comment "+str(comment+1)+" : "))
+def InputHashtags():
+    hashtags=[]
+    numHashtag=0
+    while numHashtag<=0: # To prevent users from inputting number of hashtags as less than 0 or equal to 0
+        numHashtag=int(input("Enter the number of hashtags you want to enter : "))
+    print("Enter the hashtags without space")
+    for tags in range(numHashtag): #Takes input of hashtags 
+        hashtags.append(input("Enter hashtag "+str(tags+1)+" : "))
+    return hashtags
+hashtags=InputHashtags()
+
+def InputComments():
+    numComment=0
+    while numComment<=0: #Same reason as in line 7
+        numComment=int(input("Enter the number of comments you want to enter : "))
+    print("Enter the comments ")
+    comments=[]
+    for comment in range(numComment): #Takes input of the comments the user wants to comment on post
+        comments.append(input("Enter comment "+str(comment+1)+" : "))
+    return comments
+comments=InputComments()
 
 def Opens_First_Recent_Post(): #Opens First Recent Post at the time
     try: #If the page does not load, the except block will be executed
@@ -47,15 +54,15 @@ def CommentsOnPost(comment):
     sleep(0.5)
     
 
-com_per_hastag=0
-while com_per_hastag<=0: #To take input of the number of comments a user wants to put into an hashtag
-    com_per_hastag=int(input("Enter the number of comments you want to post per hastag : "))
+com_per_hashtag=0
+while com_per_hashtag<=0: #To take input of the number of comments a user wants to put into an hashtag
+    com_per_hashtag=int(input("Enter the number of comments you want to post per hashtag : "))
 
-for tag in hastags:
+for tag in hashtags:
     driver.get('https://www.instagram.com/explore/tags/{}/'.format(tag))
     sleep(1)
     Opens_First_Recent_Post()    
-    for com in range(com_per_hastag):
+    for com in range(com_per_hashtag):
         print("Posted comment ",str(com+1)," on tag ",tag)
         CommentsOnPost(random.choice(comments))
         NextPost()
