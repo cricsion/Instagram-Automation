@@ -1,36 +1,8 @@
 from Open_Browser import driver
 from time import sleep
-
-def LikesPost():
-    try:
-        driver.find_element_by_tag_name('Like').click()
-        sleep(1)
-        return True
-    except:
-        sleep(1)
-        try:
-            driver.find_element_by_tag_name('Like').click()
-            sleep(1)
-            return True 
-        except:
-            return False
             
 def HashtagPage(hashtag):
     driver.get('https://www.instagram.com/explore/tags/{}/'.format(hashtag))
-
-def CommentsOnPost(comment):
-    try:
-        driver.find_element_by_xpath('/html/body/div[4]/div[2]/div/article/div[3]/section[3]/div/form/textarea').click()
-        sleep(0.5)
-        driver.find_element_by_xpath('/html/body/div[4]/div[2]/div/article/div[3]/section[3]/div/form/textarea').send_keys(comment)
-        sleep(0.3)
-    except:
-        driver.find_element_by_xpath('/html/body/div[4]/div[2]/div/article/div[3]/section[3]/div/form/textarea').click()
-        sleep(0.5)
-        driver.find_element_by_xpath('/html/body/div[4]/div[2]/div/article/div[3]/section[3]/div/form/textarea').send_keys(comment)
-        sleep(0.3)
-    driver.find_element_by_xpath('//button[text()="Post"]').click()
-    sleep(0.5)
 
 def NextPost():
     driver.find_element_by_xpath('//*[text()="Next"]').click()
