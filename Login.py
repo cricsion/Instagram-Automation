@@ -3,7 +3,7 @@ import Open_Browser
 from time import sleep 
 import getpass #Using getpass to hide username and password 
 
-Open_Browser.OpensURL()
+Open_Browser.OpensURL('https://www.instagram.com/')
 print("Your username and password will not be appearing as your are typing the username and password to prevent anyone from knowing your credentials")
 username=getpass.getpass("Enter your instagram username : ") #stores username
 password=getpass.getpass("Enter your instagram password : ") #stores password
