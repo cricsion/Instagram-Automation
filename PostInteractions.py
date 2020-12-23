@@ -30,4 +30,19 @@ def CommentsOnPost(comment):
     driver.find_element_by_xpath('//button[text()="Post"]').click()
     sleep(0.5)
     return True
-   
+
+def OpensLikesPanel():
+    try:
+        driver.find_element_by_xpath('/html/body/div[1]/section/main/div/div[1]/article/div[3]/section[2]/div/div[2]/button').click()
+        sleep(2)
+    except:
+        try:
+            driver.find_element_by_xpath('/html/body/div[1]/section/main/div/div[1]/article/div[3]/section[2]/div/span').click()
+            sleep(2)
+        except:
+            try:
+                driver.find_element_by_xpath('/html/body/div[1]/section/main/div/div[1]/article/div[3]/section[2]/div/div/button').click()
+                sleep(2)
+            except:
+                return False
+    return True
