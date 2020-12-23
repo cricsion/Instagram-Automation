@@ -21,7 +21,8 @@ def Login():
     print("Signing In...")
     sleep(5)
     try:
-        driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div[2]/p') #Checks whether there exists an error message that the credentials are incorrect
+        error_message=driver.find_element_by_xpath('/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div[2]/p').text #Checks whether there exists an error message that the credentials are incorrect
+        print(error_message)
         print("Sign In Failed \nTry Again")
         Login()
     except:
