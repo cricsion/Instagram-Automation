@@ -6,6 +6,7 @@ import getpass #Using getpass to hide username and password
 Open_Browser.OpensURL('https://www.instagram.com/')
 print("Your username and password will not be appearing as your are typing the username and password to prevent anyone from knowing your credentials")
 def Login():
+    global username
     username=getpass.getpass("Enter your instagram username : ") #stores username
     password=""
     while len(password)<6:
