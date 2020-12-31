@@ -7,11 +7,15 @@ from selenium.webdriver.common.action_chains import ActionChains
 sleep(1)
 account_name=input("Enter username of the account whose followers name you want : ")
 driver.get('https://www.instagram.com/{}/'.format(account_name)) #Opens Profile page
-sleep(2)
+sleep(5)
 try:
-    num_of_followers=int(driver.find_element_by_xpath('/html/body/div[1]/section/main/div/header/section/ul/li[2]/a/span').text)
+    num_of_followers=str(driver.find_element_by_xpath('/html/body/div[1]/section/main/div/header/section/ul/li[2]/a/span').text)
 except:
     print("The account is either private or not in instagram")
+    driver.quite()
+    exit()
+    
+num_of_followers=int(num_of_followers.replace(',','').replace('K','000').replace('.','').replace('M','0000000'))
 print("The number of followers of instagram account \'"+account_name+"\' is "+str(num_of_followers))
 
 driver.find_element_by_xpath('/html/body/div[1]/section/main/div/header/section/ul/li[2]/a').click()#Opens Followers window
@@ -22,19 +26,17 @@ try:  #If the file exists the except block will be executed. The names of the fo
 except FileExistsError:
     followers=open('Followers.txt','w')
 
-driver.find_element_by_xpath('/html/body/div[4]/div/div/div[2]').click() #selects the follower window
+driver.find_element_by_xpath('/html/body/div[4]/div/div/div[2]').click() #followers tab
 sleep(2)
-index=1 
-followers.write("Hello")
 action = ActionChains(driver) 
-while num_of_followers>=index:
-    try:
-        follower_name=driver.find_element_by_xpath('/html/body/div[4]/div/div/div[2]/ul/div/li[{}]/div/div[2]/div[1]/div/div/span/a'.format(index)).text #Scrapes followers from list
-        followers.write(follower_name+"\n")
-        index+=1
-        print(index)
-    except:
-        action.key_down(Keys.ARROW_DOWN).key_up(Keys.ARROW_DOWN).perform()
-        sleep(2)
+for scroll in range(int(num_of_followers/10)+1):
+    action.key_down(Keys.PAGE_DOWN).key_up(Keys.PAGE_DOWN).perform()
+    sleep(1)
+
+followerslist=driver.find_element_by_css_selector('.PZuss')
+followers_name=followerslist.find_elements_by_css_selector('.Jv7Aj.mArmR.MqpiF') #Scrapes followers from list
+for followee in followers_name:
+    followers.write(followee.text)
+    print(followee.text)
 print("All Followers' name has been written to file named Followers.txt in the Folder From Where This Program Has Been Running")
 followers.close()
