@@ -11,7 +11,8 @@ sleep(5)
 try:
     num_of_followers=str(driver.find_element_by_xpath('/html/body/div[1]/section/main/div/header/section/ul/li[2]/a/span').text)
 except:
-    print("The account is either private or not in instagram")
+    print("The account is either private or not in instagram.")
+    print("Exiting the Program.")
     driver.quite()
     exit()
 
