@@ -26,6 +26,7 @@ except:#For posts like in hastags
             print("The URL is incorrect")
         finally:
             print("Sorry the program cannot be successfully executed.")
+            driver.quit()
             exit() #To end the program instantly
   
 num_of_likes=str(num_of_likes).replace(',','').replace('K','000').replace('.','').replace('M','0000000')
@@ -68,6 +69,7 @@ for follow in range(numFollows):
         action.key_down(Keys.PAGE_DOWN).key_up(Keys.PAGE_DOWN).perform()#used to scroll down 
         pi.sleep(5)
     if cnt==30:
-        pi.sleep(60) #sleeps for 60 seconds after a set of 30 follows
+        pi.sleep(300) #sleeps for 300 seconds after a set of 30 follows
 print("Number of accounts followed: ",cnt)
 print("Program was successfully executed.")
+driver.quit()

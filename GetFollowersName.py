@@ -14,7 +14,7 @@ except:
     print("The account is either private or not in instagram")
     driver.quite()
     exit()
-    
+
 num_of_followers=int(num_of_followers.replace(',','').replace('K','000').replace('.','').replace('M','0000000'))
 print("The number of followers of instagram account \'"+account_name+"\' is "+str(num_of_followers))
 
@@ -26,17 +26,18 @@ try:  #If the file exists the except block will be executed. The names of the fo
 except FileExistsError:
     followers=open('Followers.txt','w')
 
-driver.find_element_by_xpath('/html/body/div[4]/div/div/div[2]').click() #followers tab
+driver.find_element_by_xpath('/html/body/div[4]/div/div/div[2]').click() #clicks on the followers tab
 sleep(2)
 action = ActionChains(driver) 
-for scroll in range(int(num_of_followers/10)+1):
+for scroll in range(int(num_of_followers/10)+1):#scrolls all the way to the botton 
     action.key_down(Keys.PAGE_DOWN).key_up(Keys.PAGE_DOWN).perform()
     sleep(1)
 
 followerslist=driver.find_element_by_css_selector('.PZuss')
 followers_name=followerslist.find_elements_by_css_selector('.Jv7Aj.mArmR.MqpiF') #Scrapes followers from list
 for followee in followers_name:
-    followers.write(followee.text)
+    followers.write(followee.text+"\n")
     print(followee.text)
 print("All Followers' name has been written to file named Followers.txt in the Folder From Where This Program Has Been Running")
 followers.close()
+driver.quit()
